@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
 export default function FriendButton({user, post}){
+    let [clickedFriendButton, setClickedFriendButton] = useState(false)
     let [friendsWithUser, setFriendsWithUser] = useState(false)
     let [isUser, setIsUser] = useState(false)
     
@@ -16,7 +17,7 @@ export default function FriendButton({user, post}){
         }
         checkFriendStatus()
 
-   }) 
+   }, [clickedFriendButton, user]) 
 
    async function removeFromFriendsList() {
        await fetch('http://localhost:3001/friends/', 
@@ -24,8 +25,9 @@ export default function FriendButton({user, post}){
        headers: {
         'Content-Type': 'application/json'
       },
-        body: JSON.stringify({'user_id': user.user_id, 'friend_id': post.user_id})
+        body: JSON.stringify({'friendship_id': null,'user_id': user.user_id, 'friend_id': post.user_id})
     })
+    setClickedFriendButton(!clickedFriendButton)
    }
    async function addToFriendsList() {
     await fetch('http://localhost:3001/friends/', 
@@ -33,8 +35,9 @@ export default function FriendButton({user, post}){
     headers: {
         'Content-Type': 'application/json'
       },
-     body: JSON.stringify({'user_id': user.user_id, 'friend_id': post.user_id})
+     body: JSON.stringify({'friendship_id': null,'user_id': user.user_id, 'friend_id': post.user_id})
     })
+    setClickedFriendButton(!clickedFriendButton)
 }
 
    let buttonText = ''
