@@ -1,4 +1,5 @@
 import './App.css';
+import NaviBar from "./components/NaviBar"
 
 import {useState, useEffect} from 'react'
 
@@ -45,6 +46,7 @@ function App() {
       <LoginPage setUser={setUser} userDB={userDB}/>
       <UserFeed posts={posts} userDB={userDB} user={user}/>
       {user?<AddNewPost />:''}
+      <NaviBar/>
     </div>
   );
 }

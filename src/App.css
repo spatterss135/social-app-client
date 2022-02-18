@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
 }
@@ -22,4 +23,28 @@
 }
 
 
+nav ul {
+  display: inline-block;
+  list-style-type: none;
+  /* margin: 0; */
+  padding: 0;
+}
 
+.main-nav {
+  margin: 0;
+}
+
+nav { 
+  background-color: beige;
+  text-align: center;
+}
+
+li {
+  display: inline-block;
+  font-size: 1em;
+  padding: 1.2rem;
+}
+
+li:hover {
+  background-color: rgb(355, 200, 230);
+}
