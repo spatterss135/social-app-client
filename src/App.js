@@ -30,12 +30,12 @@ function App() {
   async function TryIt(){
       let response = await fetch(`http://localhost:3001/users/${user.name}`)
       let rData = await response.json()
-      console.log(rData)
+      // console.log(rData)
       let userFriends = rData.friends.map(friend => friend.friend_id)
       // console.log(userFriends)
       let responseTwo = await fetch(`http://localhost:3001/posts/${userFriends}`)
       let rDataTwo = await responseTwo.json()
-      // setPosts(rDataTwo)
+      setPosts(rDataTwo)
 
   }
 
