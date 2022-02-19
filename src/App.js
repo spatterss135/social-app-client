@@ -63,20 +63,15 @@ function App() {
         <Routes>
           <Route path="/" element={
             <div className="homeScreen">
-              <LoginPage setUser={setUser} userDB={userDB}/>
-              <UserFeed posts={posts} userDB={userDB} user={user}/>
-              {user?<AddNewPost />:''}
+              {user?<button onClick={TryIt}>See only Friend Posts</button>:''}
+              {userDB && <LoginPage setUser={setUser} userDB={userDB}/>} 
+              {posts && <UserFeed posts={posts} userDB={userDB} user={user}/>}
+              {user?<AddNewPost setPosts={setPosts} user={user}/>:''}
             </div>
           }/>
           <Route path="/friend" element={<FriendPage/>}/>
         </Routes>
       </Router>
-
-      {/* {user?<button onClick={TryIt}>See only Friend Posts</button>:''}
-      {userDB && <LoginPage setUser={setUser} userDB={userDB}/>} 
-      {posts && <UserFeed posts={posts} userDB={userDB} user={user}/>}
-      {user?<AddNewPost setPosts={setPosts} user={user}/>:''} */}
-      
     </div>
   );
 }
