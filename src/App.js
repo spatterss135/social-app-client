@@ -57,7 +57,7 @@ function App() {
       <Router>
       <NaviBar/>
         <Routes>
-          <Route path="/users" element={
+          <Route path="/" element={
             <div className="homeScreen">
               <LoginPage setUser={setUser} userDB={userDB}/>
               <UserFeed posts={posts} userDB={userDB} user={user}/>
