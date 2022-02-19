@@ -7,6 +7,8 @@ import UserFeed from './components/UserFeed'
 import LoginPage from './components/LoginPage';
 import AddNewPost from './components/AddNewPost';
 
+import FriendPage from './components/FriendPage';
+
 function App() {
   let [user, setUser] = useState(undefined)
   let [userDB, setUserDB] = useState([])
@@ -47,6 +49,7 @@ function App() {
       <UserFeed posts={posts} userDB={userDB} user={user}/>
       {user?<AddNewPost />:''}
       <NaviBar/>
+      <FriendPage/>
     </div>
   );
 }
