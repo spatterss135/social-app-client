@@ -48,3 +48,12 @@ li {
 li:hover {
   background-color: rgb(355, 200, 230);
 }
+
+
+.new-post {
+  border: 1px solid black;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
