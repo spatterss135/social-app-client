@@ -28,28 +28,36 @@ function App() {
     }
     fetchUsers()
     fetchPosts()
-  }, [])
+  }, [user])
 
   async function TryIt(){
+    console.log('hello')
       let response = await fetch(`http://localhost:3001/users/${user.name}`)
       let rData = await response.json()
-      // console.log(rData)
+      console.log(rData)
       let userFriends = rData.friends.map(friend => friend.friend_id)
-      // console.log(userFriends)
-      let responseTwo = await fetch(`http://localhost:3001/posts/${userFriends}`)
-      let rDataTwo = await responseTwo.json()
-      setPosts(rDataTwo)
+      console.log(userFriends)
+      if (userFriends.length > 0){
+        let responseTwo = await fetch(`http://localhost:3001/posts/${userFriends}`)
+        let rDataTwo = await responseTwo.json()
+        console.log(rDataTwo)
+        setPosts(rDataTwo)
+      }
+      else {
+        setPosts([])
+      }
+
 
   }
 
   return (
     <div className="App">
+      <NaviBar/>
       {user?<button onClick={TryIt}>See only Friend Posts</button>:''}
       <LoginPage setUser={setUser} userDB={userDB}/>
       <UserFeed posts={posts} userDB={userDB} user={user}/>
       {user?<AddNewPost />:''}
       <NaviBar/>
-      <FriendPage/>
     </div>
   );
 }
