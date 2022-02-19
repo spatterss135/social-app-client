@@ -12,9 +12,10 @@ import AddNewPost from './components/AddNewPost';
 import FriendPage from './components/FriendPage';
 
 function App() {
+  console.log('App i mountimg')
   let [user, setUser] = useState(undefined)
-  let [userDB, setUserDB] = useState([])
-  let [posts, setPosts] = useState([])
+  let [userDB, setUserDB] = useState('')
+  let [posts, setPosts] = useState('')
 
 
   useEffect(()=> {
@@ -30,19 +31,22 @@ function App() {
     }
     fetchUsers()
     fetchPosts()
+      // setPosts([])
+      // setUserDB([])
+
   }, [user])
 
+  
+
+  
+
   async function TryIt(){
-    console.log('hello')
       let response = await fetch(`http://localhost:3001/users/${user.name}`)
       let rData = await response.json()
-      console.log(rData)
       let userFriends = rData.friends.map(friend => friend.friend_id)
-      console.log(userFriends)
       if (userFriends.length > 0){
         let responseTwo = await fetch(`http://localhost:3001/posts/${userFriends}`)
         let rDataTwo = await responseTwo.json()
-        console.log(rDataTwo)
         setPosts(rDataTwo)
       }
       else {
@@ -64,12 +68,14 @@ function App() {
               {user?<AddNewPost />:''}
             </div>
           }/>
-
-          <Route path="/friend" element={<FriendPage/>}>
-          </Route>
+          <Route path="/friend" element={<FriendPage/>}/>
         </Routes>
-
       </Router>
+
+      {/* {user?<button onClick={TryIt}>See only Friend Posts</button>:''}
+      {userDB && <LoginPage setUser={setUser} userDB={userDB}/>} 
+      {posts && <UserFeed posts={posts} userDB={userDB} user={user}/>}
+      {user?<AddNewPost setPosts={setPosts} user={user}/>:''} */}
       
     </div>
   );

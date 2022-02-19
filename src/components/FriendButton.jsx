@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
 export default function FriendButton({user, post}){
+    console.log('Friend Button Mounting')
     let [clickedFriendButton, setClickedFriendButton] = useState(false)
     let [friendsWithUser, setFriendsWithUser] = useState(false)
     let [isUser, setIsUser] = useState(false)
@@ -57,11 +58,13 @@ export default function FriendButton({user, post}){
 
        switch (buttonText){
            case '':{
+            //    console.log('help')
                return ''
                break;
            }
            default: {
-               return (
+            // console.log('fucck')
+                return (
                 <button onClick={buttonFunction}>{buttonText}</button>
                )
            }
