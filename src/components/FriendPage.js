@@ -1,15 +1,17 @@
 import { useState } from "react"
 
 const FriendPage = () => {
-    const [friends, setFriends] = useState(["Bob", "Marissa", "Maria"])
-    const fetchFriend = async () => {
-        data = await fetch("http://localhost:3000/users")
-        return data.json
-    }
+    const [friendPage, setFriendPage] = useState("friend")
+    // const fetchFriend = async () => {
+    //     const data = await fetch("http://localhost:3000/users")
+    //     return data.json
+    // }
 
     return(
         <div>
-            <h2>{fetchFriend}</h2>
+            <h2>Friend Name</h2>
+            <img src="http://placekitten.com/200/300"/>
+            <p>Friends: </p>
         </div>
     )
 }

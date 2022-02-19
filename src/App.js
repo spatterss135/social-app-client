@@ -2,6 +2,8 @@ import './App.css';
 import NaviBar from "./components/NaviBar"
 
 import {useState, useEffect} from 'react'
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom"
+
 
 import UserFeed from './components/UserFeed'
 import LoginPage from './components/LoginPage';
@@ -52,12 +54,23 @@ function App() {
 
   return (
     <div className="App">
+      <Router>
       <NaviBar/>
-      {user?<button onClick={TryIt}>See only Friend Posts</button>:''}
-      <LoginPage setUser={setUser} userDB={userDB}/>
-      <UserFeed posts={posts} userDB={userDB} user={user}/>
-      {user?<AddNewPost />:''}
-      <NaviBar/>
+        <Routes>
+          <Route path="/users" element={
+            <div className="homeScreen">
+              <LoginPage setUser={setUser} userDB={userDB}/>
+              <UserFeed posts={posts} userDB={userDB} user={user}/>
+              {user?<AddNewPost />:''}
+            </div>
+          }/>
+
+          <Route path="/friend" element={<FriendPage/>}>
+          </Route>
+        </Routes>
+
+      </Router>
+      
     </div>
   );
 }
