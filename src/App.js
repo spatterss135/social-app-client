@@ -8,8 +8,8 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom"
 import UserFeed from './components/UserFeed'
 import LoginPage from './components/LoginPage';
 import AddNewPost from './components/AddNewPost';
-
 import FriendPage from './components/FriendPage';
+import AddNewUser from './components/AddNewUser';
 
 function App() {
   console.log('App i mountimg')
@@ -70,6 +70,7 @@ function App() {
             </div>
           }/>
           <Route path="/friend" element={<FriendPage/>}/>
+          <Route path="/newuser" element={<AddNewUser  setUser={setUser} userDB={userDB} setUserDB={setUserDB}/>}/>
         </Routes>
       </Router>
     </div>

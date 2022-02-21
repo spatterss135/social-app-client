@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 
-export default function FriendButton({user, post}){
+export default function FriendButton({user, post, clickedFriendButton, setClickedFriendButton}){
     console.log('Friend Button Mounting')
-    let [clickedFriendButton, setClickedFriendButton] = useState(false)
+    
     let [friendsWithUser, setFriendsWithUser] = useState(false)
     let [isUser, setIsUser] = useState(false)
     
