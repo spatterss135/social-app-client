@@ -1,6 +1,9 @@
-import { useState } from "react"
+import { useState} from "react"
+import { useParams } from "react-router-dom"
 
 const FriendPage = () => {
+    let id = useParams()
+    console.log(id)
     const [friendPage, setFriendPage] = useState("friend")
     // const fetchFriend = async () => {
     //     const data = await fetch("http://localhost:3000/users")

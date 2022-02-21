@@ -3,8 +3,7 @@ import { useEffect, useState } from "react"
 export default function FriendButton({user, post, clickedFriendButton, setClickedFriendButton}){
     // console.log('Friend Button Mounting')
     
-    let [friendsWithUser, setFriendsWithUser] = useState(false)
-    let [isUser, setIsUser] = useState(false)
+    
     
    useEffect(async ()=> {
     async function checkFriendStatus(){
@@ -19,6 +18,9 @@ export default function FriendButton({user, post, clickedFriendButton, setClicke
         await checkFriendStatus()
 
    }, [clickedFriendButton, user]) 
+
+   let [friendsWithUser, setFriendsWithUser] = useState(false)
+let [isUser, setIsUser] = useState(false)
 
    async function removeFromFriendsList() {
        await fetch('http://localhost:3001/friends/', 
