@@ -1,17 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import UserFeed from "./UserFeed"
 
-const FriendPage = () => {
-    const [friendPage, setFriendPage] = useState("friend")
-    // const fetchFriend = async () => {
-    //     const data = await fetch("http://localhost:3000/users")
-    //     return data.json
-    // }
+const FriendPage = ({user}) => {
+    const [friendPage, setFriendPage] = useState()
 
+    useEffect( async () => {
+        let response = await fetch(`http://localhost:3001/users/${user.name}`)
+        let rData = await response.json()
+        let userFriends = rData.friends.map(friend => friend.friend_id)
+        setFriendPage(userFriends)
+    })
+    
     return(
         <div>
-            <h2>Friend Name</h2>
-            <img src="http://placekitten.com/200/300"/>
-            <p>Friends: </p>
+            <h2>Friends</h2>
+            <img src={user.profile_pic}/>
+            <p>Friends:{friendPage[0]}</p>
+            <p>Posts: {user.posts}</p>
         </div>
     )
 }

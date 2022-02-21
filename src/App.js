@@ -17,7 +17,6 @@ function App() {
   let [userDB, setUserDB] = useState('')
   let [posts, setPosts] = useState('')
 
-
   useEffect(()=> {
     let fetchPosts = async () => {
       let response = await fetch('http://localhost:3001/posts')
@@ -69,7 +68,7 @@ function App() {
               {user?<AddNewPost setPosts={setPosts} user={user}/>:''}
             </div>
           }/>
-          <Route path="/friend" element={<FriendPage/>}/>
+          <Route path="/friend" element={<FriendPage user={user}/>}/>
         </Routes>
       </Router>
     </div>

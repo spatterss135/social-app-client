@@ -1,4 +1,5 @@
 import FriendButton from "./FriendButton"
+import FriendPage from "./FriendPage"
 
 
 export default function UserFeed({posts, userDB, user}){
@@ -9,7 +10,11 @@ export default function UserFeed({posts, userDB, user}){
             <div key={post.post_id} className='post'>
                 <div className="">{usernameOfPoster}</div>
                 {user?<FriendButton user={user} post={post}/>:''}
+
+                
                 <div className="post-content">{post.content}</div>    
+
+
            </div>
         )
     })
