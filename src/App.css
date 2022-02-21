@@ -67,3 +67,22 @@ li:hover {
   flex-direction: column;
   padding: 20px;
 }
+
+.temporary-text {
+  background-color: red;
+  animation: fade 1s forwards;
+}
+
+
+@keyframes fade {
+  0% {
+    background-color: red;
+  }
+  100% {
+    background-color: white; 
+  }
+}
+
+.login-form {
+  border: 1px solid black;
+}

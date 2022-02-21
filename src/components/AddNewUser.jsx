@@ -7,6 +7,11 @@ export default function AddNewUser({setUser, userDB, setUserDB}){
 
     async function handleSubmit(e){
         e.preventDefault()
+        if (failedLogin){
+            let text = document.querySelector('.temporary-text')
+            text.classList.remove('temporary-text')
+            setTimeout(() => {text.classList.add('temporary-text')}, 0) 
+        }
         let usernamesInDB = userDB.map(user => user.name)
         if (!usernamesInDB.includes(username)){
             await fetch('http://localhost:3001/users/', 
@@ -23,16 +28,17 @@ export default function AddNewUser({setUser, userDB, setUserDB}){
             let index = usernamesInDB.indexOf(username)
             setUser(userDB[index])
             // console.log('You are logged in')
-            // setFailedLogin(false)
-            
+            setFailedLogin(false)
+            window.location = '/'
         }
         else{
-            // setFailedLogin(true)
+            setFailedLogin(true)
         }
     }
     return (
         <div>
             <form action="">
+                {failedLogin && <h3 className="temporary-text">"Username already exists, please try another name"</h3>}
                 <label htmlFor="username">Username:</label>
                 <input onChange={(e)=> setUsername(e.target.value)} type="text" />
                 <button onClick={(e)=> handleSubmit(e)}>Submit</button>

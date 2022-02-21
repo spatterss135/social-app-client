@@ -25,7 +25,8 @@ export default function LoginPage({setUser, userDB}){
     return(
         <div>
             {failedLogin && <h3>Username does not exist, please create new username</h3>}
-            <form action="">
+            <form action="" className="login-form">
+                <legend>Log In Here</legend>
                 <label htmlFor="username">Username:</label>
                 <input onChange={(e)=> setUsername(e.target.value)} type="text" />
                 <button onClick={(e)=> handleSubmit(e)}>Submit</button>

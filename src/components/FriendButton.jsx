@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 
 export default function FriendButton({user, post, clickedFriendButton, setClickedFriendButton}){
-    console.log('Friend Button Mounting')
+    // console.log('Friend Button Mounting')
     
     let [friendsWithUser, setFriendsWithUser] = useState(false)
     let [isUser, setIsUser] = useState(false)
     
-   useEffect(()=> {
+   useEffect(async ()=> {
     async function checkFriendStatus(){
         let response = await fetch(`http://localhost:3001/users/${user.name}`)
         let rData = await response.json()
@@ -16,7 +16,7 @@ export default function FriendButton({user, post, clickedFriendButton, setClicke
         setIsUser(user.user_id === post.user_id)
     
         }
-        checkFriendStatus()
+        await checkFriendStatus()
 
    }, [clickedFriendButton, user]) 
 
@@ -26,8 +26,9 @@ export default function FriendButton({user, post, clickedFriendButton, setClicke
        headers: {
         'Content-Type': 'application/json'
       },
-        body: JSON.stringify({'friendship_id': null,'user_id': user.user_id, 'friend_id': post.user_id})
+        body: JSON.stringify({'user_id': user.user_id, 'friend_id': post.user_id})
     })
+    setFriendsWithUser(false)
     setClickedFriendButton(!clickedFriendButton)
    }
    async function addToFriendsList() {
@@ -36,40 +37,37 @@ export default function FriendButton({user, post, clickedFriendButton, setClicke
     headers: {
         'Content-Type': 'application/json'
       },
-     body: JSON.stringify({'friendship_id': null,'user_id': user.user_id, 'friend_id': post.user_id})
+     body: JSON.stringify({'user_id': user.user_id, 'friend_id': post.user_id})
     })
+    setFriendsWithUser(true)
     setClickedFriendButton(!clickedFriendButton)
 }
 
-   let buttonText = ''
-   let buttonFunction;
+//    let buttonText = ''
+//    let buttonFunction;
    let determineButton = () => {
        if (friendsWithUser){
-           buttonText='Unfriend'
-           buttonFunction = removeFromFriendsList
+           console.log('hey')
+        //    buttonText='Unfriend'
+        //    buttonFunction = removeFromFriendsList
+           return (
+               <button onClick={removeFromFriendsList}>Unfriend</button>
+           )
        }
        else if (!friendsWithUser && !isUser){
-           buttonText='Add as Friend'
-           buttonFunction = addToFriendsList
+           console.log('oops')
+        //    buttonText='Add as Friend'
+        //    buttonFunction = addToFriendsList
+           return (
+            <button onClick={addToFriendsList}>Add as Friend</button>
+        )
+           
        }
        else {
-           buttonText=''
+           return (
+               <></>
+           )
        }
-
-       switch (buttonText){
-           case '':{
-            //    console.log('help')
-               return ''
-               break;
-           }
-           default: {
-            // console.log('fucck')
-                return (
-                <button onClick={buttonFunction}>{buttonText}</button>
-               )
-           }
-       }
-
    }
 
     return(

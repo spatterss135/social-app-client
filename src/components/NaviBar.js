@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom"
 import AddNewUser from "./AddNewUser"
 
-const NaviBar = () => {
+const NaviBar = ({user, setUser}) => {
     return(
         <div className="navContainer">
             <nav className="navbar">
                 <ul className="main-nav">
                         <li><Link to="/">Home</Link></li>
-                        <li><Link to="/newuser">Sign Up</Link></li>
-                        <li><Link to="/yourprofile">Your Profile</Link></li>
+                        {!user && <li><Link to="/newuser">Sign Up</Link></li>}
+                        {user && <li><Link to="/yourprofile">Your Profile</Link></li>}
                 </ul>
-                <ul className="logout">
-                    <li>Logout</li>
-                </ul>
+                {user && <ul className="logout">
+                    <li onClick={()=> setUser(undefined)} ><Link to="/">Logout</Link></li>
+                </ul>}
             </nav>
         </div>
     )

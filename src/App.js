@@ -9,10 +9,12 @@ import UserFeed from './components/UserFeed'
 import LoginPage from './components/LoginPage';
 import AddNewPost from './components/AddNewPost';
 import FriendPage from './components/FriendPage';
+import UserPage from './components/UserPage';
 import AddNewUser from './components/AddNewUser';
+import TogglePostsViewButton from './components/TogglePostsViewButton';
 
 function App() {
-  console.log('App i mountimg')
+  // console.log('App i mountimg')
   let [user, setUser] = useState(undefined)
   let [userDB, setUserDB] = useState('')
   let [posts, setPosts] = useState('')
@@ -59,18 +61,19 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <NaviBar/>
+      <NaviBar user={user} setUser={setUser}/>
         <Routes>
           <Route path="/" element={
             <div className="homeScreen">
-              {user?<button onClick={TryIt}>See only Friend Posts</button>:''}
-              {userDB && <LoginPage setUser={setUser} userDB={userDB}/>} 
+              {user && <TogglePostsViewButton user={user} setPosts={setPosts}/> }
+              {(userDB && !user) && <LoginPage setUser={setUser} userDB={userDB}/>} 
               {posts && <UserFeed posts={posts} userDB={userDB} user={user}/>}
               {user?<AddNewPost setPosts={setPosts} user={user}/>:''}
             </div>
           }/>
           <Route path="/friend" element={<FriendPage/>}/>
           <Route path="/newuser" element={<AddNewUser  setUser={setUser} userDB={userDB} setUserDB={setUserDB}/>}/>
+          <Route path="/yourprofile" element={<UserPage/>}/>
         </Routes>
       </Router>
     </div>
