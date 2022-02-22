@@ -51,7 +51,7 @@ export default function UserPage({user, posts, setPosts}){
     
     return (
         <div>
-            {user.profile_pic && <img src={user.profile_pic}/> || <img src={'https://placekitten.com/200/300'}/>}
+            {user?.profile_pic && <img src={user.profile_pic}/> || <img src={'https://placekitten.com/200/300'}/>}
             {userFriendBox}
             {userPostsCards || ''}
         </div>
