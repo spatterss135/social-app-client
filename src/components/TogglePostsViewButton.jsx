@@ -1,5 +1,5 @@
-
 import { useState } from "react"
+import Cookies from "cookies-js"
 
 export default function TogglePostsViewButton({user, setPosts}) {
     let [onlyFriendsPosts, setOnlyFriendsPosts] = useState(false)
@@ -15,9 +15,12 @@ export default function TogglePostsViewButton({user, setPosts}) {
                 let responseTwo = await fetch(`http://localhost:3001/posts/${userFriends}`)
                 let rDataTwo = await responseTwo.json()
                 setPosts(rDataTwo)
+                Cookies.set('posts', JSON.stringify(rDataTwo))
+                
       }
             else {
                 setPosts([])
+                Cookies.set('posts', JSON.stringify([]))
             }
 
         }
@@ -26,6 +29,7 @@ export default function TogglePostsViewButton({user, setPosts}) {
             let response = await fetch('http://localhost:3001/posts')
             let rData = await response.json()
             setPosts(rData)
+            Cookies.set('posts', JSON.stringify(rData))
         }
 
     }

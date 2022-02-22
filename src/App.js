@@ -3,6 +3,7 @@ import NaviBar from "./components/NaviBar"
 
 import {useState, useEffect} from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom"
+import Cookies from 'cookies-js'
 
 
 import UserFeed from './components/UserFeed'
@@ -14,8 +15,11 @@ import AddNewUser from './components/AddNewUser';
 import TogglePostsViewButton from './components/TogglePostsViewButton';
 
 function App() {
-  // console.log('App i mountimg')
-  let [user, setUser] = useState(undefined)
+  let cookieUser = Cookies.get('user')
+  if (cookieUser) {cookieUser = JSON.parse(cookieUser)}
+  let cookiePosts = Cookies.get('posts')
+  if (cookiePosts) {cookiePosts = JSON.parse(cookiePosts)}
+  let [user, setUser] = useState(cookieUser)
   let [userDB, setUserDB] = useState('')
   let [posts, setPosts] = useState('')
 
@@ -25,6 +29,7 @@ function App() {
       let response = await fetch('http://localhost:3001/posts')
       let rData = await response.json()
       setPosts(rData)
+      Cookies.set('posts', JSON.stringify(rData))
     }
     let fetchUsers = async () => {
       let response = await fetch('http://localhost:3001/users')
@@ -50,9 +55,11 @@ function App() {
         let responseTwo = await fetch(`http://localhost:3001/posts/${userFriends}`)
         let rDataTwo = await responseTwo.json()
         setPosts(rDataTwo)
+        Cookies.set('posts', JSON.stringify(rDataTwo))
       }
       else {
         setPosts([])
+        Cookies.set('posts', JSON.stringify([]))
       }
 
 
@@ -73,7 +80,7 @@ function App() {
           }/>
           <Route path="/friend/:name" element={<FriendPage/>}/>
           <Route path="/newuser" element={<AddNewUser  setUser={setUser} userDB={userDB} setUserDB={setUserDB}/>}/>
-          <Route path="/yourprofile" element={<UserPage user={user} posts={posts}/>}/>
+          <Route path="/yourprofile" element={<UserPage user={user} posts={posts} setPosts={setPosts}/>}/>
         </Routes>
       </Router>
     </div>
