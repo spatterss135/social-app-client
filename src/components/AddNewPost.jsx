@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Cookies from "cookies-js"
 
 
 export default function AddNewPost({setPosts, user}){
@@ -17,6 +18,7 @@ export default function AddNewPost({setPosts, user}){
         let response = await fetch('http://localhost:3001/posts')
         let rData = await response.json()
         setPosts(rData) 
+        Cookies.set('posts', JSON.stringify(rData))
     }
 
     return (

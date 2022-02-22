@@ -1,4 +1,5 @@
 import FriendButton from "./FriendButton"
+import Cookies from "cookies-js"
 
 import { useState } from "react"
 
@@ -22,6 +23,7 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
     let response = await fetch('http://localhost:3001/posts')
     let rData = await response.json()
     setPosts(rData)
+    Cookies.set('posts', JSON.stringify(rData))
 }
     return(
         <div>

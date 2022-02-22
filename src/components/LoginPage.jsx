@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import Cookies from 'cookies-js'
 
 export default function LoginPage({setUser, userDB}){
     let [username, setUsername] = useState(undefined)
@@ -14,6 +14,7 @@ export default function LoginPage({setUser, userDB}){
         if (usernamesInDB.includes(username)){
             let index = usernamesInDB.indexOf(username)
             setUser(userDB[index])
+            Cookies.set('user', JSON.stringify(userDB[index]))
             console.log('You are logged in')
             setFailedLogin(false)
             

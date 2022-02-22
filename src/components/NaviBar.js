@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom"
 import AddNewUser from "./AddNewUser"
+import Cookies from "cookies-js"
 
 const NaviBar = ({user, setUser}) => {
+    function handleLogout(){
+        setUser(undefined)
+        Cookies.set('user', undefined)
+    }
     return(
         <div className="navContainer">
             <nav className="navbar">
@@ -11,7 +16,7 @@ const NaviBar = ({user, setUser}) => {
                         {user && <li><Link to="/yourprofile">Your Profile</Link></li>}
                 </ul>
                 {user && <ul className="logout">
-                    <li onClick={()=> setUser(undefined)} ><Link to="/">Logout</Link></li>
+                    <li onClick={()=> handleLogout()} ><Link to="/">Logout</Link></li>
                 </ul>}
             </nav>
         </div>
