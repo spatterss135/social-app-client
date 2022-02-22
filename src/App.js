@@ -71,7 +71,7 @@ function App() {
               {user?<AddNewPost setPosts={setPosts} user={user}/>:''}
             </div>
           }/>
-          <Route path="/friend/:id" element={<FriendPage/>}/>
+          <Route path="/friend/:name" element={<FriendPage/>} posts={posts} user={user}/>
           <Route path="/newuser" element={<AddNewUser  setUser={setUser} userDB={userDB} setUserDB={setUserDB}/>}/>
           <Route path="/yourprofile" element={<UserPage user={user} posts={posts}/>}/>
         </Routes>

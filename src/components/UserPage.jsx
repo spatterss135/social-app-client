@@ -20,7 +20,10 @@ export default function UserPage({user, posts}){
     
        }, []) 
 
-    let userPosts = posts.filter(post => post.user_id === user.user_id)
+    let userPosts = []; 
+    if(posts){
+        userPosts = posts.filter(post => post.user_id === user.user_id)
+    }
     let userPostsCards = userPosts.map(post => {
         return (
             <div className='post'>
@@ -33,13 +36,13 @@ export default function UserPage({user, posts}){
     let userFriendBox = userFriends.map(friend => {
         return (
             <div>
-                <Link to={'/friend/'+friend.user_id}>{friend.name}</Link>
+                <Link to={'/friend/'+friend.name}>{friend.name}</Link>
             </div>
         )
     })
     return (
         <div>
-            {user.profile_pic && <img src={user.profile_pic}/> || <img src={'https://placekitten.com/200/300'}/>}
+            {user?.profile_pic && <img src={user.profile_pic}/> || <img src={'https://placekitten.com/200/300'}/>}
             {userFriendBox}
             {userPostsCards}
         </div>
