@@ -33,7 +33,7 @@ export default function UserPage({user, posts}){
     let userFriendBox = userFriends.map(friend => {
         return (
             <div>
-                <Link to={'/friend/'+friend.user_id}>{friend.name}</Link>
+                <Link to={'/friend/'+friend.name}>{friend.name}</Link>
             </div>
         )
     })
