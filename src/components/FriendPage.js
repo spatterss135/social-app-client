@@ -3,23 +3,13 @@ import { useParams, Link } from "react-router-dom"
 
 const FriendPage = (posts, user) => {
     let name = useParams()
+    console.log(name)
     const [friend, setFriend] = useState([])
-
-    // console.log(posts.posts.content)
-    // console.log('posts')
-    // console.log(posts)
-
     let [userFriends, setUserFriends] = useState([])
 
     useEffect(() => {
-        const fetchFriend = async () => {
-            const data = await fetch(`http://localhost:3001/users/${name.name}`)
-            const returnedData = await data.json()
-            setFriend(returnedData)
-        }
-
-        fetchFriend()
-    }, [userFriends])
+        
+    }, [])
 
     useEffect(async ()=> {
         async function retrieveFriends(){
@@ -30,10 +20,16 @@ const FriendPage = (posts, user) => {
             let rDataTwo = await responseTwo.json()
             setUserFriends(rDataTwo)
             }
-
-            await retrieveFriends()
+            const fetchFriend = async () => {
+                const data = await fetch(`http://localhost:3001/users/${name.name}`)
+                const returnedData = await data.json()
+                setFriend(returnedData)
+            }
     
-       }, [userFriends])
+            fetchFriend()
+            retrieveFriends()
+    
+       }, [name])
 
     let userFriendBox = userFriends.map((friend, i) => {
         return (

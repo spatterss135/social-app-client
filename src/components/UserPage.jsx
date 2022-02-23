@@ -1,14 +1,15 @@
 
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import Masonry from "react-masonry-css"
 import Cookies from "cookies-js"
+import UserFeedItem from "./UserFeedItem"
 
 export default function UserPage({user, posts, setPosts}){
-    
+    console.log('yo')
     let [userFriends, setUserFriends] = useState([])
     let cookiePosts = JSON.parse(Cookies.get('posts'))
     let [userPagePosts, setUserPagePosts] = useState(cookiePosts)
-
     useEffect(async ()=> {
         async function retrieveFriends(){
             let response = await fetch(`http://localhost:3001/users/${user.name}`)
@@ -21,7 +22,7 @@ export default function UserPage({user, posts, setPosts}){
             }
             await retrieveFriends()
     
-       }, []) 
+       }, [userPagePosts]) 
 
 
     let userPosts = userPagePosts.filter(post => post.user_id === user.user_id)
@@ -30,10 +31,7 @@ export default function UserPage({user, posts, setPosts}){
     if (userPosts.length > 0) {
         userPostsCards = userPosts.map(post => {
             return (
-                <div className='post'>
-                    <div >{user.name}</div>
-                    <div className="post-content">{post.content}</div>
-                </div>
+                <UserFeedItem key={post.post_id} setPosts={setPosts} user={user} post={post} usernameOfPoster={user.name} setUserPagePosts={setUserPagePosts}/>
             )
         })
     }
@@ -53,7 +51,13 @@ export default function UserPage({user, posts, setPosts}){
         <div>
             {user?.profile_pic && <img src={user.profile_pic}/> || <img src={'https://placekitten.com/200/300'}/>}
             {userFriendBox}
+            <Masonry
+            breakpointCols={2}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column">
             {userPostsCards || ''}
+        </Masonry>
+            
         </div>
     )
 }

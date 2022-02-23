@@ -1,6 +1,7 @@
 import UserFeedItem from './UserFeedItem'
-
 import { useState } from "react"
+
+import Masonry from 'react-masonry-css'
 
 export default function UserFeed({posts, userDB, user, setPosts}){
     let [clickedFriendButton, setClickedFriendButton] = useState(false)
@@ -13,8 +14,12 @@ export default function UserFeed({posts, userDB, user, setPosts}){
     })
 
     return (
-        <div className='feed'>
+        <Masonry
+            breakpointCols={4}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column">
             {individualPosts}
-        </div>
+        </Masonry>
+            
     )
 }
