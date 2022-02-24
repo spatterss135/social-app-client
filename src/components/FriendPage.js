@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 
+import Avatar from "@mui/material/Avatar"
+
 const FriendPage = (posts, user) => {
     let name = useParams()
     const [friend, setFriend] = useState([])
@@ -52,12 +54,11 @@ const FriendPage = (posts, user) => {
     let userPostsCards = userPosts.map((post, i) => {
         return (
             <div className='post' key={i}>
-                <div >{name_text}</div>
+                <div> {friend.profile_pic ? <Avatar alt={name_text} src={friend.profile_pic}/> : <Avatar>{name_text.charAt(0)}</Avatar>} {name_text}</div>
                 <div className="post-content">{post.content}</div>
             </div>
         )
     })
-
 
     return(
         <div>
