@@ -1,6 +1,7 @@
 import FriendButton from "./FriendButton"
 import Cookies from "cookies-js"
 import { useState } from "react"
+import date from 'date-and-time'
 
 // Material-UI
 import Card from '@mui/material/Card';
@@ -11,12 +12,37 @@ import Button from '@mui/material/Button';
 import { ButtonGroup } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { makeStyles } from "@mui/material";
 
 export default function UserFeedItem({user, post, clickedFriendButton, setClickedFriendButton, usernameOfPoster, setPosts, setUserPagePosts}){
+
+
     let [isEditing, setIsEditing] = useState(false)
     let [newContent, setNewContent] = useState(post.content)
 
     let enabledEdit = user && user.user_id === post.user_id 
+
+    let timeStamp = () => {
+        let daysSincePosted = date.subtract(new Date(),  new Date(post.created_at)).toDays()
+        let hoursSincePosted = date.subtract(new Date(),  new Date(post.created_at)).toHours()
+        let minutesSincePosted = date.subtract(new Date(),  new Date(post.created_at)).toMinutes()
+        let secondsSincePosted = date.subtract(new Date(),  new Date(post.created_at)).toSeconds()
+        
+        if (daysSincePosted > 1){
+            return `${Math.floor(daysSincePosted)} days since posted...`
+        }
+        else if (hoursSincePosted > 1) {
+            return `${Math.floor(hoursSincePosted)}  hours since posted...`
+        }
+        else if (minutesSincePosted > 1) {
+            return `${Math.floor(minutesSincePosted)} minutes since posted...`
+        }
+        else {
+            return `${Math.floor(secondsSincePosted)} seconds since posted...`
+        }
+    }
+    
 
 
     async function handleSubmit(e){
@@ -48,7 +74,7 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
     return(
         <div>
             {!isEditing && 
-            <Card sx={{ maxWidth: 345, minWidth: 200 }}>
+            <Card className="card"sx={{ maxWidth: 345, minWidth: 314 }}>
                 {post.image && <CardMedia
                                 component="img"
                                 height="140"
@@ -63,14 +89,20 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
                         {post.content}
                     </Typography>
                 </CardContent>
+                <div className="container">
                 {enabledEdit &&
                 <CardActions>
                     <ButtonGroup>
                         <Button onClick={()=> setIsEditing(true)} size="small">Edit</Button>
-                        <Button onClick={deletePost}size="small">Delete</Button>
+                        <Button onClick={deletePost}size="small"><DeleteIcon /></Button>
                     </ButtonGroup>
                     
-                </CardActions>}
+                </CardActions> || <div></div>}
+                <Typography  sx={{fontSize: '10px', fontWeight: "bold", margin:"3px"}} variant="caption" color='text.secondary'>
+                    {timeStamp()}
+                </Typography>
+                </div>
+                
             </Card>
             
         ||  <Card sx={{ maxWidth: 345, minWidth: 200  }}>
@@ -86,11 +118,18 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
             </Typography>
             <TextareaAutosize minRows={3} defaultValue={post.content} onChange={(e)=> setNewContent(e.target.value)}/>
         </CardContent>
-        {enabledEdit &&
-        <CardActions>
-            <Button onClick={(e) => handleSubmit(e)}>Submit Changes</Button> 
-            
-        </CardActions>}
+        <div className="container">
+                {enabledEdit &&
+                <CardActions>
+                    <ButtonGroup>
+                    <Button size="small" variant='contained'onClick={(e) => handleSubmit(e)}>Submit Changes</Button>
+                    </ButtonGroup>
+                    
+                </CardActions> || <div></div>}
+                <Typography sx={{fontSize: '10px', fontWeight: "bold", margin:"3px"}} variant="caption" color='text.secondary'>
+                    {timeStamp()}
+                </Typography>
+                </div>
     </Card>
             }
         </div>
@@ -98,22 +137,3 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
     )
 }
 
-{/* <div className='post'>
-                <div className="">{usernameOfPoster}</div>
-                {enabledEdit &&<button onClick={()=> setIsEditing(true)} >Edit</button>}
-                {user?<FriendButton user={user} post={post} clickedFriendButton={clickedFriendButton} setClickedFriendButton={setClickedFriendButton}/>:''}
-                <div className="post-content">{post.content}</div>    
-            </div> */}
-
-        //     <div className='post'>
-        //     <div className="">{usernameOfPoster}</div>
-        //     <form action="">
-        //         <textarea size={post.content.length} className='editbox' rows={post.content.length/50} defaultValue={post.content} onChange={(e)=> setNewContent(e.target.value)}/>
-        //         <button onClick={(e) => handleSubmit(e)}>Submit Changes</button>
-        //     </form>  
-        // </div> 
-
-
-        
-
-        // size={post.content.length} className='editbox' rows={post.content.length/50}

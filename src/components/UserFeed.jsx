@@ -4,6 +4,7 @@ import { useState } from "react"
 import Masonry from 'react-masonry-css'
 
 export default function UserFeed({posts, userDB, user, setPosts}){
+    
     let [clickedFriendButton, setClickedFriendButton] = useState(false)
     // console.log('Userfeed is mounting')
     let individualPosts = posts.map((post, index) => {
@@ -15,7 +16,7 @@ export default function UserFeed({posts, userDB, user, setPosts}){
 
     return (
         <Masonry
-            breakpointCols={4}
+            breakpointCols={posts.length <4 ? 2: 4}
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column">
             {individualPosts}

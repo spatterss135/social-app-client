@@ -89,10 +89,20 @@ li:hover {
 
 .editbox {
   width: 70%;
+}
 
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 }
 
 .friend-box {
   width: 30%;
+}
+.card:hover{
+  transition: transform 0.15s ease-in-out;
+  transform: scale3d(1.05, 1.05, 1)
 }
