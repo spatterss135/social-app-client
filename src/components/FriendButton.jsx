@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react"
 
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import Button from '@mui/material/Button';
+
 export default function FriendButton({user, post, clickedFriendButton, setClickedFriendButton}){
     // console.log('Friend Button Mounting')
     
@@ -49,19 +53,17 @@ let [isUser, setIsUser] = useState(false)
 //    let buttonFunction;
    let determineButton = () => {
        if (friendsWithUser){
-           console.log('hey')
         //    buttonText='Unfriend'
         //    buttonFunction = removeFromFriendsList
            return (
-               <button onClick={removeFromFriendsList}>Unfriend</button>
+               <Button color='error' style={{'minWidth': "50px"}}onClick={removeFromFriendsList}><PersonRemoveIcon/></Button>
            )
        }
        else if (!friendsWithUser && !isUser){
-           console.log('oops')
         //    buttonText='Add as Friend'
         //    buttonFunction = addToFriendsList
            return (
-            <button onClick={addToFriendsList}>Add as Friend</button>
+            <Button style={{'minWidth': "50px"}} onClick={addToFriendsList}><PersonAddIcon/></Button>
         )
            
        }
@@ -73,9 +75,9 @@ let [isUser, setIsUser] = useState(false)
    }
 
     return(
-        <div>
+        <span>
             {determineButton()}
-        </div>
+        </span>
         
     )
 }
