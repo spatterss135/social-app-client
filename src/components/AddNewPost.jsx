@@ -26,6 +26,7 @@ export default function AddNewPost({setPosts, user}){
         })
         let response = await fetch('http://localhost:3001/posts')
         let rData = await response.json()
+        rData.sort((a, b) => a.post_id - b.post_id)
         setPosts(rData) 
         Cookies.set('posts', JSON.stringify(rData))
     }

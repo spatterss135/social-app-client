@@ -29,6 +29,7 @@ function App() {
     let fetchPosts = async () => {
       let response = await fetch('http://localhost:3001/posts')
       let rData = await response.json()
+      rData.sort((a, b) => a.post_id - b.post_id)
       setPosts(rData)
       Cookies.set('posts', JSON.stringify(rData))
     }
@@ -48,23 +49,6 @@ function App() {
 
   
 
-  async function TryIt(){
-      let response = await fetch(`http://localhost:3001/users/${user.name}`)
-      let rData = await response.json()
-      let userFriends = rData.friends.map(friend => friend.friend_id)
-      if (userFriends.length > 0){
-        let responseTwo = await fetch(`http://localhost:3001/posts/${userFriends}`)
-        let rDataTwo = await responseTwo.json()
-        setPosts(rDataTwo)
-        Cookies.set('posts', JSON.stringify(rDataTwo))
-      }
-      else {
-        setPosts([])
-        Cookies.set('posts', JSON.stringify([]))
-      }
-
-
-  }
 
   return (
     <div className="App">
