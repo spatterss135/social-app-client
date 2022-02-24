@@ -14,6 +14,7 @@ import UserPage from './components/UserPage';
 import AddNewUser from './components/AddNewUser';
 import TogglePostsViewButton from './components/TogglePostsViewButton';
 
+
 function App() {
   let cookieUser = Cookies.get('user')
   if (cookieUser) {cookieUser = JSON.parse(cookieUser)}
