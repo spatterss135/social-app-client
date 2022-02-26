@@ -18,16 +18,12 @@ import { Avatar } from "@mui/material"
 
 export default function UserFeedItem({user, userDB, post, clickedFriendButton, setClickedFriendButton, usernameOfPoster, setPosts, setUserPagePosts}){
 
-    let userWhoPosted = userDB.filter(user => {
-        console.log("yuh")
+    let userWhoPosted
+    userDB ? userWhoPosted = userDB.filter(user => {
         return(
             user.user_id===post.user_id
         )
-    })
-    console.log("userwhoposted")
-    console.log(userWhoPosted)
-    console.log(userWhoPosted[0].name)
-
+    }) : console.log("hey")
 
     let [isEditing, setIsEditing] = useState(false)
     let [newContent, setNewContent] = useState(post.content)
