@@ -29,14 +29,14 @@ function App() {
 
   useEffect(()=> {
     let fetchPosts = async () => {
-      let response = await fetch('http://localhost:3001/posts')
+      let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`)
       let rData = await response.json()
       rData.sort((a, b) => a.post_id - b.post_id)
       setPosts(rData)
       Cookies.set('posts', JSON.stringify(rData))
     }
     let fetchUsers = async () => {
-      let response = await fetch('http://localhost:3001/users')
+      let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`)
       let rData = await response.json()
       setUserDB(rData)
     }
