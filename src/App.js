@@ -24,11 +24,14 @@ function App() {
   let [userDB, setUserDB] = useState('')
   let [posts, setPosts] = useState('')
 
+  let [userPagePosts, setUserPagePosts] = useState(cookiePosts)
+
 
   useEffect(()=> {
     let fetchPosts = async () => {
       let response = await fetch('http://localhost:3001/posts')
       let rData = await response.json()
+      rData.sort((a, b) => a.post_id - b.post_id)
       setPosts(rData)
       Cookies.set('posts', JSON.stringify(rData))
     }
@@ -48,23 +51,6 @@ function App() {
 
   
 
-  async function TryIt(){
-      let response = await fetch(`http://localhost:3001/users/${user.name}`)
-      let rData = await response.json()
-      let userFriends = rData.friends.map(friend => friend.friend_id)
-      if (userFriends.length > 0){
-        let responseTwo = await fetch(`http://localhost:3001/posts/${userFriends}`)
-        let rDataTwo = await responseTwo.json()
-        setPosts(rDataTwo)
-        Cookies.set('posts', JSON.stringify(rDataTwo))
-      }
-      else {
-        setPosts([])
-        Cookies.set('posts', JSON.stringify([]))
-      }
-
-
-  }
 
   return (
     <div className="App">
@@ -75,14 +61,16 @@ function App() {
             <div className="homeScreen">
               {user && <TogglePostsViewButton user={user} setPosts={setPosts}/> }
               {(userDB && !user) && <LoginPage setUser={setUser} userDB={userDB}/>} 
-              {posts && <UserFeed posts={posts} userDB={userDB} user={user} setPosts={setPosts}/>}
+              {posts && <UserFeed userPagePosts={userPagePosts}
+            setUserPagePosts={setUserPagePosts} posts={posts} userDB={userDB} user={user} setPosts={setPosts}/>}
               {user?<AddNewPost setPosts={setPosts} user={user}/>:''}
             </div>
           }/>
           <Route path="/friend/:name" element={<FriendPage user={user} posts={posts}/>}/>
 
           <Route path="/newuser" element={<AddNewUser  setUser={setUser} userDB={userDB} setUserDB={setUserDB}/>}/>
-          <Route path="/yourprofile" element={<UserPage user={user} posts={posts} setPosts={setPosts}/>}/>
+          <Route path="/yourprofile" element={<UserPage user={user} posts={posts} setPosts={setPosts} userPagePosts={userPagePosts}
+            setUserPagePosts={setUserPagePosts}/>}/>
         </Routes>
       </Router>
     </div>

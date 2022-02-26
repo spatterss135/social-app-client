@@ -13,6 +13,7 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 
 export default function AddNewPost({setPosts, user}){
     let [postContent, setPostContent] = useState('')
+    let [postImage, setPostImage] = useState('')
 
 
     async function handleSubmit(e){
@@ -26,17 +27,34 @@ export default function AddNewPost({setPosts, user}){
         })
         let response = await fetch('http://localhost:3001/posts')
         let rData = await response.json()
+        rData.sort((a, b) => a.post_id - b.post_id)
         setPosts(rData) 
         Cookies.set('posts', JSON.stringify(rData))
     }
 
+    async function uploadPhoto(photo){
+        let formData = new FormData(); 
+        formData.append("photo", photo) 
+        setPostImage('logo192.png')
+    }
+    let imageFile;
+    function addPhoto(){
+        imageFile = document.getElementById('image-file')
+        imageFile.addEventListener('change', ()=> uploadPhoto(imageFile.files[0]))
+        imageFile.click()
+        
+        
+    }
+
     return (
         <Card sx={{ maxWidth: 345, minWidth: 200  }}>
-        {<CardMedia
+            <input id="image-file" type="file" style={{visibility: 'hidden'}} accept="image/*"/>
+        <CardMedia
                         component="img"
                         height="140"
-                        image='placeholder-image.png'
-                        />}
+                        image={postImage? postImage: 'placeholder-image.png'}
+                        onClick={addPhoto}
+                        />
         <CardContent>
             <Typography gutterBottom variant="h5" component="div">
                 {user.name}

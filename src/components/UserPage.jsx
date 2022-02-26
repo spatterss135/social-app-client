@@ -5,11 +5,11 @@ import Masonry from "react-masonry-css"
 import Cookies from "cookies-js"
 import UserFeedItem from "./UserFeedItem"
 
-export default function UserPage({user, posts, setPosts}){
+export default function UserPage({user, posts, setPosts, userPagePosts, setUserPagePosts}){
     console.log('yo')
     let [userFriends, setUserFriends] = useState([])
-    let cookiePosts = JSON.parse(Cookies.get('posts'))
-    let [userPagePosts, setUserPagePosts] = useState(cookiePosts)
+    // let cookiePosts = JSON.parse(Cookies.get('posts'))
+    // let [userPagePosts, setUserPagePosts] = useState(cookiePosts)
     useEffect(async ()=> {
         async function retrieveFriends(){
             let response = await fetch(`http://localhost:3001/users/${user.name}`)
