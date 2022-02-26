@@ -49,7 +49,7 @@ const FriendPage = (posts, user) => {
     let userFriendBox = userFriends.map((friend, i) => {
         return (
             <List key={i}>
-                <ListItem>
+                <ListItem sx={{width: "16em"}}>
                     <ListItemAvatar>
                         <Avatar src={friend.profile_pic ? friend.profile_pic : <Avatar>{friend.name.charAt(0)}</Avatar>}/>
                     </ListItemAvatar>
@@ -81,7 +81,7 @@ const FriendPage = (posts, user) => {
     return(
         <div>
             {friend ? <h2>{friend.name}</h2> : <h2>nothing</h2>}
-            <img src={friend.profile_pic}/>
+            <img src={friend.profile_pic ? friend.profile_pic : "http://placekitten.com/250/175"}/>
             <div className="friend-box">
                 <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                 Friends:
