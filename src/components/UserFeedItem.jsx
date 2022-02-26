@@ -15,11 +15,27 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { makeStyles } from "@mui/material";
 
+import LikePanel from "./LikePanel";
+import { useEffect } from "react";
+
 export default function UserFeedItem({user, post, clickedFriendButton, setClickedFriendButton, usernameOfPoster, setPosts, setUserPagePosts}){
 
 
     let [isEditing, setIsEditing] = useState(false)
     let [newContent, setNewContent] = useState(post.content)
+    let [likes, setLikes] = useState()
+
+    useEffect(()=>{
+        async function getLikes(){
+            let response = await fetch(`http://localhost:3001/likes/post/${post.post_id}`,{
+                method: 'GET'
+            })
+            let rData = await response.json()
+            console.log(rData)
+            setLikes(rData)
+        }
+        getLikes()
+    },[post, user])
 
     let enabledEdit = user && user.user_id === post.user_id 
 
@@ -42,9 +58,10 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
             return `${Math.floor(secondsSincePosted)} seconds since posted...`
         }
     }
+
     
-
-
+    
+    
     async function handleSubmit(e){
         setIsEditing(false)
         e.preventDefault()
@@ -73,6 +90,7 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
         setUserPagePosts(rData)
         Cookies.set('posts', JSON.stringify(rData))
     }
+
     return(
         <div>
             {!isEditing && 
@@ -83,6 +101,7 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
                                 image={post.image}
                                 />}
                 <CardContent>
+                
                     <Typography gutterBottom variant="h5" component="div">
                         {usernameOfPoster}
                         {user && <FriendButton user={user} post={post} clickedFriendButton={clickedFriendButton} setClickedFriendButton={setClickedFriendButton}/>}
@@ -103,8 +122,9 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
                 <Typography  sx={{fontSize: '10px', fontWeight: "bold", margin:"3px"}} variant="caption" color='text.secondary'>
                     {timeStamp()}
                 </Typography>
-                </div>
                 
+                </div>
+                {/* <LikePanel user={user} post={post} likes={likes} setLikes={setLikes}></LikePanel> */}
             </Card>
             
         ||  <Card sx={{ maxWidth: 345, minWidth: 200  }}>
@@ -132,6 +152,7 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
                     {timeStamp()}
                 </Typography>
                 </div>
+                {/* <LikePanel user={user} post={post} likes={likes} setLikes={setLikes}></LikePanel> */}
     </Card>
             }
         </div>
