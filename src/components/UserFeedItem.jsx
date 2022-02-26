@@ -14,12 +14,20 @@ import Typography from '@mui/material/Typography';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { makeStyles } from "@mui/material";
-
+import { Avatar } from "@mui/material"
 import LikePanel from "./LikePanel";
 import { useEffect } from "react";
 
-export default function UserFeedItem({user, post, clickedFriendButton, setClickedFriendButton, usernameOfPoster, setPosts, setUserPagePosts}){
 
+export default function UserFeedItem({user, userDB, post, clickedFriendButton, setClickedFriendButton, usernameOfPoster, setPosts, setUserPagePosts}){
+
+
+    let userWhoPosted
+    userDB ? userWhoPosted = userDB.filter(user => {
+        return(
+            user.user_id===post.user_id
+        )
+    }) : console.log("hey")
 
     let [isEditing, setIsEditing] = useState(false)
     let [newContent, setNewContent] = useState(post.content)
@@ -118,7 +126,9 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
                         <Button onClick={deletePost}size="small"><DeleteIcon /></Button>
                     </ButtonGroup>
                     
-                </CardActions> || <div></div>}
+                </CardActions> || <div><Avatar sx={{margin: "10px", width: "1.5em", height: "1.5em"}} src={userWhoPosted[0].profile_pic}/></div>
+                }
+
                 <Typography  sx={{fontSize: '10px', fontWeight: "bold", margin:"3px"}} variant="caption" color='text.secondary'>
                     {timeStamp()}
                 </Typography>
@@ -147,7 +157,7 @@ export default function UserFeedItem({user, post, clickedFriendButton, setClicke
                     <Button size="small" variant='contained'onClick={(e) => handleSubmit(e)}>Submit Changes</Button>
                     </ButtonGroup>
                     
-                </CardActions> || <div></div>}
+                </CardActions> || <div><Avatar sx={{margin: "10px", width: "1.5em", height: "1.5em"}} src={userWhoPosted[0].profile_pic}/></div>}
                 <Typography sx={{fontSize: '10px', fontWeight: "bold", margin:"3px"}} variant="caption" color='text.secondary'>
                     {timeStamp()}
                 </Typography>

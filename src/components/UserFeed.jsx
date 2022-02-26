@@ -10,7 +10,7 @@ export default function UserFeed({posts, userDB, user, setPosts,  setUserPagePos
     let individualPosts = posts.map((post, index) => {
         let usernameOfPoster = userDB.filter(user=> user.user_id === post.user_id)[0].name
         return(
-            <UserFeedItem key={post.post_id} setPosts={setPosts} user={user} post={post} clickedFriendButton={clickedFriendButton} setClickedFriendButton={setClickedFriendButton} usernameOfPoster={usernameOfPoster} setUserPagePosts={setUserPagePosts}/>
+            <UserFeedItem key={post.post_id} setPosts={setPosts} user={user} userDB={userDB} post={post} clickedFriendButton={clickedFriendButton} setClickedFriendButton={setClickedFriendButton} usernameOfPoster={usernameOfPoster} setUserPagePosts={setUserPagePosts}/>
         )
     })
 
