@@ -20,25 +20,25 @@ export default function AddNewPost({setPosts, user}){
     async function handleSubmit(e){
 
         // e.preventDefault()
-        let formData = new FormData()
-        formData.append('photo', postImage)
-        formData.append('user_id', user.user_id)
-        formData.append('content', postContent)
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts`, formData);
+        // let formData = new FormData()
+        // formData.append('photo', postImage)
+        // formData.append('user_id', user.user_id)
+        // formData.append('content', postContent)
+        // await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts`, formData);
 
         
-        // await fetch('http://localhost:3001/posts/', 
-        // {method: 'POST',
-        // headers: {
-        //     'Content-Type': 'multipart/form-data'
-        //   },
-        //  body: formData
-        // })
-        // let response = await fetch('http://localhost:3001/posts')
-        // let rData = await response.json()
-        // rData.sort((a, b) => a.post_id - b.post_id)
-        // setPosts(rData) 
-        // Cookies.set('posts', JSON.stringify(rData))
+        await fetch('http://localhost:3001/posts/', 
+        {method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+         body: JSON.stringify({user_id: user.user_id, content: postContent})
+        })
+        let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`)
+        let rData = await response.json()
+        rData.sort((a, b) => a.post_id - b.post_id)
+        setPosts(rData) 
+        Cookies.set('posts', JSON.stringify(rData))
     }
 
 
@@ -61,7 +61,7 @@ export default function AddNewPost({setPosts, user}){
                         component="img"
                         height="140"
                         image={'placeholder-image.png'}
-                        onClick={addPhoto}
+                        // onClick={addPhoto}
                         />
         <CardContent>
             <Typography gutterBottom variant="h5" component="div">
