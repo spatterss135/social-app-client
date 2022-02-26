@@ -24,7 +24,7 @@ export default function AddNewPost({setPosts, user}){
         formData.append('photo', postImage)
         formData.append('user_id', user.user_id)
         formData.append('content', postContent)
-        await axios.post('http://localhost:3001/posts', formData);
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts`, formData);
 
         
         // await fetch('http://localhost:3001/posts/', 

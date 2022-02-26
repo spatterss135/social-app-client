@@ -28,15 +28,15 @@ const FriendPage = (posts, user) => {
 
     useEffect(async ()=> {
         async function retrieveFriends(){
-            let response = await fetch(`http://localhost:3001/users/${name.name}`)
+            let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${name.name}`)
             let rData = await response.json()
             let userFriends = rData.friends.map(friend => friend.friend_id)
-            let responseTwo = await fetch(`http://localhost:3001/users/friends/${userFriends}`)
+            let responseTwo = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/friends/${userFriends}`)
             let rDataTwo = await responseTwo.json()
             setUserFriends(rDataTwo)
             }
             const fetchFriend = async () => {
-                const data = await fetch(`http://localhost:3001/users/${name.name}`)
+                const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${name.name}`)
                 const returnedData = await data.json()
                 setFriend(returnedData)
             }

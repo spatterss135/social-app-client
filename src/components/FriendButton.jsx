@@ -11,7 +11,7 @@ export default function FriendButton({user, post, clickedFriendButton, setClicke
     
    useEffect(async ()=> {
     async function checkFriendStatus(){
-        let response = await fetch(`http://localhost:3001/users/${user.name}`)
+        let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${user.name}`)
         let rData = await response.json()
         let userFriends = rData.friends.map(friend => friend.friend_id)
         let isPostAuthorFriendsWithUser = userFriends.includes(post.user_id)
@@ -27,7 +27,7 @@ export default function FriendButton({user, post, clickedFriendButton, setClicke
 let [isUser, setIsUser] = useState(false)
 
    async function removeFromFriendsList() {
-       await fetch('http://localhost:3001/friends/', 
+       await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends/`, 
        {method: 'DELETE', 
        headers: {
         'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ let [isUser, setIsUser] = useState(false)
     setClickedFriendButton(!clickedFriendButton)
    }
    async function addToFriendsList() {
-    await fetch('http://localhost:3001/friends/', 
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends/`, 
     {method: 'POST',
     headers: {
         'Content-Type': 'application/json'

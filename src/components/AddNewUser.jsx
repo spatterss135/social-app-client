@@ -14,7 +14,7 @@ export default function AddNewUser({setUser, userDB, setUserDB}){
         }
         let usernamesInDB = userDB.map(user => user.name)
         if (!usernamesInDB.includes(username)){
-            await fetch('http://localhost:3001/users/', 
+            await fetch(`${process.env.REACT_APP_BACKEND_URL}users/`, 
             {
                 method: 'POST',
                 headers: {
@@ -22,7 +22,7 @@ export default function AddNewUser({setUser, userDB, setUserDB}){
                   },
                  body: JSON.stringify({name: username})
             })
-            let response = await fetch('http://localhost:3001/users')
+            let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`)
             let rData = await response.json()
             setUserDB(rData)
             let index = usernamesInDB.indexOf(username)

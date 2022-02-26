@@ -20,7 +20,7 @@ export default function LikePanel({user, post, likes, setLikes}){
 
     async function likeHandler(e){
         e.preventDefault()
-        await fetch(`http://localhost:3001/likes/`,{
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export default function LikePanel({user, post, likes, setLikes}){
                 post_id: post.post_id
             }
         })
-        let check = await fetch(`http://localhost:3001/likes/post/${post.post_id}`)
+        let check = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/post/${post.post_id}`)
         let rCheck = await check.json()
         console.log(rCheck)
         setLikes(rCheck)
