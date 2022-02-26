@@ -36,6 +36,7 @@ const NaviBar = ({user, setUser}) => {
       function handleLogout(){
         setUser(undefined)
         Cookies.set('user', undefined)
+        window.location.href = '/'
     }
     
       return (
