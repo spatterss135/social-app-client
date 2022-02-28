@@ -18,11 +18,11 @@ import MenuItem from '@mui/material/MenuItem';
 
 const pagesSignedIn = ['Home', 'Your Profile'];
 const pagesSignedOut = ['Home', 'Sign Up']
-
+let routesSignedIn;
 const routesSignedOut = ['/', '/newuser']
 
 const NaviBar = ({user, setUser}) => {
-    const routesSignedIn = ['/', `/friend/${user.name}`, '/']
+    if (user) routesSignedIn = ['/', `/friend/${user.name}`, '/']
 
     const [anchorElNav, setAnchorElNav] = useState(null);
 

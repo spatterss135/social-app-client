@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom"
 
 import Avatar from "@mui/material/Avatar"
 import { blue } from "@mui/material/colors"
+import AnotherFriendButton from "./AnotherFriendButton"
 
 import * as React from 'react';
 import List from '@mui/material/List';
@@ -19,10 +20,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import timeStamp from "./UserFeedItem"
 import { Button } from "@mui/material";
 
-const FriendPage = ({posts, user}) => {
+const FriendPage = ({posts, user, setUserDB, setUser}) => {
     let name = useParams()
     let isUser = user.name === name.name
-    console.log(user.name, name.name)
     const [friend, setFriend] = useState([])
     let [userFriends, setUserFriends] = useState([])
 
@@ -45,23 +45,26 @@ const FriendPage = ({posts, user}) => {
             retrieveFriends()
     
        }, [name])
+    let userFriendBox;
+    if (userFriends){
+        userFriendBox = userFriends.map((friend, i) => {
+            return (
+                <List key={i}>
+                    <ListItem sx={{width: "16em"}}>
+                        <ListItemAvatar>
+                            <Avatar src={friend.profile_pic ? friend.profile_pic : <Avatar>{friend.name.charAt(0)}</Avatar>}/>
+                        </ListItemAvatar>
+                        <ListItemText>
+                            <div key={i}>
+                                <Link to={'/friend/'+friend.name} style={{'textDecoration': 'none'}}>{friend.name}</Link>
+                            </div>
+                        </ListItemText>
+                    </ListItem>
+                </List>
+            )
+        })
+    }
 
-    let userFriendBox = userFriends.map((friend, i) => {
-        return (
-            <List key={i}>
-                <ListItem sx={{width: "16em"}}>
-                    <ListItemAvatar>
-                        <Avatar src={friend.profile_pic ? friend.profile_pic : <Avatar>{friend.name.charAt(0)}</Avatar>}/>
-                    </ListItemAvatar>
-                    <ListItemText>
-                        <div key={i}>
-                            <Link to={'/friend/'+friend.name} style={{'textDecoration': 'none'}}>{friend.name}</Link>
-                        </div>
-                    </ListItemText>
-                </ListItem>
-            </List>
-        )
-    })
 
     let name_text = name.name
     let posts_text = posts
@@ -101,7 +104,7 @@ const FriendPage = ({posts, user}) => {
             <div className="friendBar">
                 <div className='topBar'>
                 {friend ? <h2>{friend.name}</h2> : <h2>nothing</h2>}
-                {!isUser && <Button>Add As Friend</Button>}
+                {!isUser && <AnotherFriendButton setUser={setUser} user={user} friend={friend} setUserDB={setUserDB}/>}
                 </div>
                 <img className="profilePic" src={friend.profile_pic ? friend.profile_pic : "http://placekitten.com/250/175"} style={{'borderRadius': '40%'}}/>
                 <div className="friendBox">

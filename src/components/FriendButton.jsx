@@ -3,8 +3,8 @@ import { useEffect, useState } from "react"
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import Button from '@mui/material/Button';
-
-export default function FriendButton({user, post, clickedFriendButton, setClickedFriendButton}){
+import Cookies from "cookies-js";
+export default function FriendButton({user, post, clickedFriendButton, setClickedFriendButton, userDB, setUserDB, setUser}){
     // console.log('Friend Button Mounting')
     
     
@@ -34,6 +34,13 @@ let [isUser, setIsUser] = useState(false)
       },
         body: JSON.stringify({'user_id': user.user_id, 'friend_id': post.user_id})
     })
+    let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`)
+    let rData = await response.json()
+    setUserDB(rData)
+    let usernamesInDB = rData.map(user => user.name)
+    let index = usernamesInDB.indexOf(user.name)
+    setUser(rData[index])
+    Cookies.set('user', JSON.stringify(rData[index]))
     setFriendsWithUser(false)
     setClickedFriendButton(!clickedFriendButton)
    }
@@ -45,6 +52,13 @@ let [isUser, setIsUser] = useState(false)
       },
      body: JSON.stringify({'user_id': user.user_id, 'friend_id': post.user_id})
     })
+    let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`)
+    let rData = await response.json()
+    setUserDB(rData)
+    let usernamesInDB = rData.map(user => user.name)
+    let index = usernamesInDB.indexOf(user.name)
+    setUser(rData[index])
+    Cookies.set('user', JSON.stringify(rData[index]))
     setFriendsWithUser(true)
     setClickedFriendButton(!clickedFriendButton)
 }

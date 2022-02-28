@@ -19,7 +19,7 @@ import LikePanel from "./LikePanel";
 import { useEffect } from "react";
 
 
-export default function UserFeedItem({user, userDB, post, clickedFriendButton, setClickedFriendButton, usernameOfPoster, setPosts, setUserPagePosts}){
+export default function UserFeedItem({user, userDB, post, clickedFriendButton, setClickedFriendButton, usernameOfPoster, setPosts, setUserPagePosts, setUserDB, setUser}){
 
     let userWhoPosted;
     if (userDB) {
@@ -112,7 +112,7 @@ export default function UserFeedItem({user, userDB, post, clickedFriendButton, s
                 
                     <Typography gutterBottom variant="h5" component="div">
                         {usernameOfPoster}
-                        {user && <FriendButton user={user} post={post} clickedFriendButton={clickedFriendButton} setClickedFriendButton={setClickedFriendButton}/>}
+                        {user && <FriendButton setUserDB={setUserDB} user={user} post={post} clickedFriendButton={clickedFriendButton} setClickedFriendButton={setClickedFriendButton} userDB={userDB} setUser={setUser}/>}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {post.content}
@@ -146,7 +146,7 @@ export default function UserFeedItem({user, userDB, post, clickedFriendButton, s
         <CardContent>
             <Typography gutterBottom variant="h5" component="div">
                 {usernameOfPoster}
-                {user && <FriendButton user={user} post={post} clickedFriendButton={clickedFriendButton} setClickedFriendButton={setClickedFriendButton}/>}
+                {user && <FriendButton setUserDB={setUserDB} user={user} post={post} clickedFriendButton={clickedFriendButton} setClickedFriendButton={setClickedFriendButton} setUser={setUser}/>}
             </Typography>
             <TextareaAutosize minRows={3} defaultValue={post.content} onChange={(e)=> setNewContent(e.target.value)}/>
         </CardContent>

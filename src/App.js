@@ -62,11 +62,11 @@ function App() {
               {user && <TogglePostsViewButton user={user} setPosts={setPosts}/> }
               {(userDB && !user) && <LoginPage setUser={setUser} userDB={userDB}/>} 
               {(userDB && posts) && <UserFeed userPagePosts={userPagePosts}
-            setUserPagePosts={setUserPagePosts} posts={posts} userDB={userDB} user={user} setPosts={setPosts}/>}
+            setUserPagePosts={setUserPagePosts} posts={posts} userDB={userDB} setUserDB={setUserDB} user={user} setUser={setUser} setPosts={setPosts}/>}
               {user?<AddNewPost setPosts={setPosts} user={user}/>:''}
             </div>
           }/>
-          <Route path="/friend/:name" element={<FriendPage user={user} posts={posts}/>}/>
+          <Route path="/friend/:name" element={<FriendPage user={user} posts={posts} setUser={setUser} setUserDB={setUserDB}/>}/>
 
           <Route path="/newuser" element={<AddNewUser  setUser={setUser} userDB={userDB} setUserDB={setUserDB}/>}/>
           {/* <Route path="/yourprofile" element={
