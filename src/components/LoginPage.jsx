@@ -1,5 +1,7 @@
 import { useState } from "react"
 import Cookies from 'cookies-js'
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 export default function LoginPage({setUser, userDB}){
     let [username, setUsername] = useState(undefined)
@@ -25,13 +27,22 @@ export default function LoginPage({setUser, userDB}){
     }
     return(
         <div>
-            {failedLogin && <h3>Username does not exist, please create new username</h3>}
+            {/* {failedLogin && <h3>Username does not exist, please create new username</h3>}
             <form action="" className="login-form">
                 <legend>Log In Here</legend>
                 <label htmlFor="username">Username:</label>
                 <input onChange={(e)=> setUsername(e.target.value)} type="text" />
                 <button onClick={(e)=> handleSubmit(e)}>Submit</button>
-            </form>
+            </form> */}
+
+            <TextField
+                margin="normal"
+                size="small"
+                id="outlined-helperText"
+                label="Username"
+            />
+
+
         </div>
     )
 }

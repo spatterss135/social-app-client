@@ -8,8 +8,8 @@
 }
 
 .container {
-  position: relative;
-  height: 100vh;
+  /* position: relative;
+  height: 100vh; */
 }
 
 .profilePic{
@@ -35,7 +35,7 @@
 .postCards {
   display: inline-block;
   vertical-align: top;
-  padding-top: 7em
+  padding-top: 6em
 }
 
   
@@ -137,6 +137,11 @@ li:hover {
 
 .friend-box {
   width: 30%;
+}
+
+.viewButton {
+  padding-bottom: 1em;
+  padding-top: 1em; 
 }
 
 .friend-page-container {
