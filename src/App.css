@@ -144,6 +144,19 @@ li:hover {
   padding-top: 1em; 
 }
 
+.loginForm {
+  padding-left: 1em;
+}
+
+.loginField {
+  display: inline-block;
+}
+
+.subButton {
+  display: inline-block;
+  padding-top: 16px;
+}
+
 .friend-page-container {
   display: inline-block;
 }
