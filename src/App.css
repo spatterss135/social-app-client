@@ -7,8 +7,38 @@
   margin: auto;
 }
 
+.container {
+  position: relative;
+  height: 100vh;
+}
 
+.profilePic{
+  /* display: block;
+  margin-left: auto;
+  margin-right: auto; */
+}
 
+.friendBox {
+  width: 16em;
+  /* background-color: black; */
+}
+
+.friendBar {
+  display: inline-block;
+  padding-right: 1em;
+}
+
+.posts {
+  top: 0;
+}
+
+.postCards {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 7em
+}
+
+  
 .App {
   display: flex;
   flex-direction: column;
@@ -17,8 +47,12 @@
   background-color: #F7F6F3;
 }
 
-.feed {
+body {
+  height: 100vh;
+  background-color: #F7F6F3;
+}
 
+.feed {
   width: 80%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
