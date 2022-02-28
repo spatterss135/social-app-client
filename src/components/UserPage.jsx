@@ -5,8 +5,7 @@ import Masonry from "react-masonry-css"
 import Cookies from "cookies-js"
 import UserFeedItem from "./UserFeedItem"
 
-export default function UserPage({user, posts, setPosts, userPagePosts, setUserPagePosts}){
-    console.log('yo')
+export default function UserPage({user, userDB, setPosts, userPagePosts, setUserPagePosts}){
     let [userFriends, setUserFriends] = useState([])
     // let cookiePosts = JSON.parse(Cookies.get('posts'))
     // let [userPagePosts, setUserPagePosts] = useState(cookiePosts)
@@ -31,7 +30,10 @@ export default function UserPage({user, posts, setPosts, userPagePosts, setUserP
     if (userPosts.length > 0) {
         userPostsCards = userPosts.map(post => {
             return (
-                <UserFeedItem key={post.post_id} setPosts={setPosts} user={user} post={post} usernameOfPoster={user.name} setUserPagePosts={setUserPagePosts}/>
+                <div>
+                    {userDB && <UserFeedItem key={post.post_id} setPosts={setPosts} user={user} post={post} usernameOfPoster={user.name} setUserPagePosts={setUserPagePosts}/>}
+                </div>
+                
             )
         })
     }
@@ -55,7 +57,7 @@ export default function UserPage({user, posts, setPosts, userPagePosts, setUserP
             breakpointCols={2}
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column">
-            {userPostsCards || ''}
+            {userDB && userPostsCards || ''}
         </Masonry>
             
         </div>

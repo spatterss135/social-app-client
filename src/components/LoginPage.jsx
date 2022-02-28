@@ -45,24 +45,33 @@ export default function LoginPage({setUser, userDB}){
     }
     return(
         <div>
-            {/* {failedLogin && <h3>Username does not exist, please create new username</h3>}
-            <form action="" className="login-form">
-                <legend>Log In Here</legend>
-                <label htmlFor="username">Username:</label>
-                <input onChange={(e)=> setUsername(e.target.value)} type="text" />
-                <button onClick={(e)=> handleSubmit(e)}>Submit</button>
-            </form> */}
 
 
-            {failedLogin && <h3 style={{color:"red", paddingLeft: "1em"}}>Username does not exist, please create new username</h3>}
             <form action="" className="login-form" className="loginForm">
-                <TextField
+            {!failedLogin && <TextField
                     onChange={(e)=> setUsername(e.target.value)}
                     margin="normal"
                     size="small"
                     id="outlined-helperText"
                     label="Username"
-                    helperText="Log in here"
+                    helperText="Create New User"
+                    InputProps={{
+                        startAdornment: (
+                        <InputAdornment position="start">
+                            <AccountCircle />
+                        </InputAdornment>
+                        ),
+
+                    }}
+                /> ||
+                <TextField
+                    onChange={(e)=> setUsername(e.target.value)}
+                    error
+                    margin="normal"
+                    size="small"
+                    id="outlined-helperText"
+                    label="Username"
+                    helperText="Invalid Username"
                     InputProps={{
                         startAdornment: (
                         <InputAdornment position="start">
@@ -72,6 +81,8 @@ export default function LoginPage({setUser, userDB}){
 
                     }}
                 />
+                
+                    }
 
                 <div className="subButton">
                     <ToggleButton

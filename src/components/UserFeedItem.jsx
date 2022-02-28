@@ -21,13 +21,14 @@ import { useEffect } from "react";
 
 export default function UserFeedItem({user, userDB, post, clickedFriendButton, setClickedFriendButton, usernameOfPoster, setPosts, setUserPagePosts}){
 
-
-    let userWhoPosted
-    userDB ? userWhoPosted = userDB.filter(user => {
+    let userWhoPosted;
+    if (userDB) {
+        userWhoPosted = userDB.filter(user => {
         return(
             user.user_id===post.user_id
         )
-    }) : console.log("hey")
+    })}
+
 
     let [isEditing, setIsEditing] = useState(false)
     let [newContent, setNewContent] = useState(post.content)
@@ -39,7 +40,6 @@ export default function UserFeedItem({user, userDB, post, clickedFriendButton, s
                 method: 'GET'
             })
             let rData = await response.json()
-            console.log(rData)
             setLikes(rData)
         }
         getLikes()

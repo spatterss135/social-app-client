@@ -15,6 +15,7 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 export default function AddNewPost({setPosts, user}){
     let [postContent, setPostContent] = useState('')
     let [postImage, setPostImage] = useState('')
+    let [placeholder, setPlaceholder] = useState("What is goin' on in that big ole brain of yours?")
 
 
     async function handleSubmit(e){
@@ -25,20 +26,20 @@ export default function AddNewPost({setPosts, user}){
         // formData.append('user_id', user.user_id)
         // formData.append('content', postContent)
         // await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts`, formData);
-
-        
         await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`, 
-        {method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-          },
-         body: JSON.stringify({user_id: user.user_id, content: postContent})
-        })
+    {method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+      },
+     body: JSON.stringify({'user_id': user.user_id, 'content': postContent})
+    })
         let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`)
         let rData = await response.json()
         rData.sort((a, b) => a.post_id - b.post_id)
         setPosts(rData) 
         Cookies.set('posts', JSON.stringify(rData))
+        setPlaceholder("What is goin' on in that big ole brain of yours?")
+        
     }
 
 
@@ -67,7 +68,7 @@ export default function AddNewPost({setPosts, user}){
             <Typography gutterBottom variant="h5" component="div">
                 {user.name}
             </Typography>
-            <TextareaAutosize minRows={3} placeholder="What is goin' on in that big ole brain of yours?" onChange={(e)=> setPostContent(e.target.value)}/>
+            <TextareaAutosize minRows={3} placeholder={placeholder} onChange={(e)=> setPostContent(e.target.value)}/>
         </CardContent>
         
                 <CardActions>

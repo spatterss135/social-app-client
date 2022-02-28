@@ -61,7 +61,7 @@ function App() {
             <div className="homeScreen">
               {user && <TogglePostsViewButton user={user} setPosts={setPosts}/> }
               {(userDB && !user) && <LoginPage setUser={setUser} userDB={userDB}/>} 
-              {posts && <UserFeed userPagePosts={userPagePosts}
+              {(userDB && posts) && <UserFeed userPagePosts={userPagePosts}
             setUserPagePosts={setUserPagePosts} posts={posts} userDB={userDB} user={user} setPosts={setPosts}/>}
               {user?<AddNewPost setPosts={setPosts} user={user}/>:''}
             </div>
@@ -69,8 +69,14 @@ function App() {
           <Route path="/friend/:name" element={<FriendPage user={user} posts={posts}/>}/>
 
           <Route path="/newuser" element={<AddNewUser  setUser={setUser} userDB={userDB} setUserDB={setUserDB}/>}/>
-          <Route path="/yourprofile" element={<UserPage user={user} posts={posts} setPosts={setPosts} userPagePosts={userPagePosts}
-            setUserPagePosts={setUserPagePosts}/>}/>
+          <Route path="/yourprofile" element={
+          <div>
+              {userDB && <UserPage user={user} posts={posts} setPosts={setPosts} userPagePosts={userPagePosts}
+            setUserPagePosts={setUserPagePosts} userDB={userDB}/>}
+          </div>}
+          
+            
+            />
         </Routes>
       </Router>
     </div>
