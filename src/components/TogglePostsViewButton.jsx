@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Cookies from "cookies-js"
+import Button from "@mui/material/Button"
 
 export default function TogglePostsViewButton({user, setPosts}) {
     let [onlyFriendsPosts, setOnlyFriendsPosts] = useState(false)
@@ -36,13 +37,17 @@ export default function TogglePostsViewButton({user, setPosts}) {
     
     if (!onlyFriendsPosts){
         return (
-            <button onClick={togglePosts}>See Only Friends Posts</button>
+            <div className="viewButton">
+                <Button className="viewButton" color="primary" size="small" variant="contained" onClick={togglePosts}>See Only Friends Posts</Button>
+            </div>
             
         )
     }
     else{
         return (
-            <button onClick={togglePosts}>See All Posts</button>
+            <div className="viewButton">
+                <Button className="viewButton" size="small" variant="outlined" onClick={togglePosts}>See All Posts</Button>
+            </div>
         )
     }
     }
