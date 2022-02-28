@@ -12,10 +12,10 @@ export default function UserPage({user, posts, setPosts, userPagePosts, setUserP
     // let [userPagePosts, setUserPagePosts] = useState(cookiePosts)
     useEffect(async ()=> {
         async function retrieveFriends(){
-            let response = await fetch(`http://localhost:3001/users/${user.name}`)
+            let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${user.name}`)
             let rData = await response.json()
             let userFriends = rData.friends.map(friend => friend.friend_id)
-            let responseTwo = await fetch(`http://localhost:3001/users/friends/${userFriends}`)
+            let responseTwo = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/friends/${userFriends}`)
             let rDataTwo = await responseTwo.json()
             setUserFriends(rDataTwo)
         

@@ -35,7 +35,7 @@ export default function UserFeedItem({user, userDB, post, clickedFriendButton, s
 
     useEffect(()=>{
         async function getLikes(){
-            let response = await fetch(`http://localhost:3001/likes/post/${post.post_id}`,{
+            let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/post/${post.post_id}`,{
                 method: 'GET'
             })
             let rData = await response.json()
@@ -73,14 +73,14 @@ export default function UserFeedItem({user, userDB, post, clickedFriendButton, s
     async function handleSubmit(e){
         setIsEditing(false)
         e.preventDefault()
-        await fetch(`http://localhost:3001/posts/${post.post_id}`, 
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts/${post.post_id}`, 
        {method: 'PUT', 
        headers: {
         'Content-Type': 'application/json'
       },
         body: JSON.stringify({'content': newContent})
     })
-    let response = await fetch('http://localhost:3001/posts')
+    let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`)
     let rData = await response.json()
     rData.sort((a, b) => a.post_id - b.post_id)
     setPosts(rData)
@@ -89,9 +89,9 @@ export default function UserFeedItem({user, userDB, post, clickedFriendButton, s
 }
 
     async function deletePost(){
-        await fetch(`http://localhost:3001/posts/${post.post_id}`,
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts/${post.post_id}`,
         {method: 'DELETE'})
-        let response = await fetch('http://localhost:3001/posts')
+        let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`)
         let rData = await response.json()
         rData.sort((a, b) => a.post_id - b.post_id)
         setPosts(rData)

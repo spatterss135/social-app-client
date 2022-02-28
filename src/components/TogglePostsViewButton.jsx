@@ -8,11 +8,11 @@ export default function TogglePostsViewButton({user, setPosts}) {
     async function togglePosts(){
         if (!onlyFriendsPosts){
             setOnlyFriendsPosts(true)
-            let response = await fetch(`http://localhost:3001/users/${user.name}`)
+            let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${user.name}`)
             let rData = await response.json()
             let userFriends = rData.friends.map(friend => friend.friend_id)
             if (userFriends.length > 0){
-                let responseTwo = await fetch(`http://localhost:3001/posts/${userFriends}`)
+                let responseTwo = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts/${userFriends}`)
                 let rDataTwo = await responseTwo.json()
                 setPosts(rDataTwo)
                 Cookies.set('posts', JSON.stringify(rDataTwo))
@@ -26,7 +26,7 @@ export default function TogglePostsViewButton({user, setPosts}) {
         }
         else {
             setOnlyFriendsPosts(false)
-            let response = await fetch('http://localhost:3001/posts')
+            let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`)
             let rData = await response.json()
             setPosts(rData)
             Cookies.set('posts', JSON.stringify(rData))
