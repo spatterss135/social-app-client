@@ -155,3 +155,8 @@ li:hover {
   transition: transform 0.15s ease-in-out;
   transform: scale3d(1.05, 1.05, 1)
 }
+
+.topBar{
+  display: flex;
+  justify-content: space-between;
+}

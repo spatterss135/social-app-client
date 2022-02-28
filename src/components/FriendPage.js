@@ -17,9 +17,12 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import timeStamp from "./UserFeedItem"
+import { Button } from "@mui/material";
 
-const FriendPage = (posts, user) => {
+const FriendPage = ({posts, user}) => {
     let name = useParams()
+    let isUser = user.name === name.name
+    console.log(user.name, name.name)
     const [friend, setFriend] = useState([])
     let [userFriends, setUserFriends] = useState([])
 
@@ -52,7 +55,7 @@ const FriendPage = (posts, user) => {
                     </ListItemAvatar>
                     <ListItemText>
                         <div key={i}>
-                            <Link to={'/friend/'+friend.name}>{friend.name}</Link>
+                            <Link to={'/friend/'+friend.name} style={{'textDecoration': 'none'}}>{friend.name}</Link>
                         </div>
                     </ListItemText>
                 </ListItem>
@@ -61,7 +64,7 @@ const FriendPage = (posts, user) => {
     })
 
     let name_text = name.name
-    let posts_text = posts.posts
+    let posts_text = posts
     let userPosts = []; 
     if(posts_text){
         userPosts = posts_text.filter(post => post.user_id === friend.user_id)
@@ -96,8 +99,11 @@ const FriendPage = (posts, user) => {
     return(
         <div className="conatainer">
             <div className="friendBar">
+                <div className='topBar'>
                 {friend ? <h2>{friend.name}</h2> : <h2>nothing</h2>}
-                <img className="profilePic" src={friend.profile_pic ? friend.profile_pic : "http://placekitten.com/250/175"}/>
+                {!isUser && <Button>Add As Friend</Button>}
+                </div>
+                <img className="profilePic" src={friend.profile_pic ? friend.profile_pic : "http://placekitten.com/250/175"} style={{'borderRadius': '40%'}}/>
                 <div className="friendBox">
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                     Friends:

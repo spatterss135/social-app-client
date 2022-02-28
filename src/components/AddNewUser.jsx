@@ -5,6 +5,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import * as React from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 import ToggleButton from '@mui/material/ToggleButton';
+import Cookies from 'cookies-js'
 
 export default function AddNewUser({setUser, userDB, setUserDB}){
     let [username, setUsername] = useState(undefined)
@@ -25,8 +26,11 @@ export default function AddNewUser({setUser, userDB, setUserDB}){
             let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`)
             let rData = await response.json()
             setUserDB(rData)
+            usernamesInDB = rData.map(user => user.name)
             let index = usernamesInDB.indexOf(username)
-            setUser(userDB[index])
+            console.log(rData, index)
+            setUser(rData[index])
+            Cookies.set('user', JSON.stringify(rData[index]))
             // console.log('You are logged in')
             setFailedLogin(false)
             window.location = '/'

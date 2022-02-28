@@ -15,6 +15,7 @@ export default function TogglePostsViewButton({user, setPosts}) {
             if (userFriends.length > 0){
                 let responseTwo = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts/${userFriends}`)
                 let rDataTwo = await responseTwo.json()
+                rDataTwo.sort((a, b) => a.post_id - b.post_id)
                 setPosts(rDataTwo)
                 Cookies.set('posts', JSON.stringify(rDataTwo))
                 
@@ -29,6 +30,7 @@ export default function TogglePostsViewButton({user, setPosts}) {
             setOnlyFriendsPosts(false)
             let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`)
             let rData = await response.json()
+            rData.sort((a, b) => a.post_id - b.post_id)
             setPosts(rData)
             Cookies.set('posts', JSON.stringify(rData))
         }
