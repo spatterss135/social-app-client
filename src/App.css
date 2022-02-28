@@ -60,6 +60,9 @@ li:hover {
   background-color: rgb(226, 226, 226);
 }
 
+.posts {
+  padding-bottom: 1em;
+}
 
 .new-post {
   border: 1px solid black;
