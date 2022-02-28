@@ -1,4 +1,12 @@
 import { useState } from "react"
+import Cookies from 'cookies-js'
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import * as React from 'react';
+import CheckIcon from '@mui/icons-material/Check';
+import ToggleButton from '@mui/material/ToggleButton';
 
 
 export default function AddNewUser({setUser, userDB, setUserDB}){
@@ -37,12 +45,49 @@ export default function AddNewUser({setUser, userDB, setUserDB}){
     }
     return (
         <div>
-            <form action="">
+            {/* <form action="">
                 {failedLogin && <h3 className="temporary-text">"Username already exists, please try another name"</h3>}
                 <label htmlFor="username">Username:</label>
                 <input onChange={(e)=> setUsername(e.target.value)} type="text" />
                 <button onClick={(e)=> handleSubmit(e)}>Submit</button>
+
+                
+            </form> */}
+
+            <form action="">
+                {failedLogin && <h3 className="temporary-text" style={{color: "red"}}>"Username already exists, please try another name"</h3>}
+                <TextField
+                    onChange={(e)=> setUsername(e.target.value)}
+                    margin="normal"
+                    size="small"
+                    id="outlined-helperText"
+                    label="Username"
+                    helperText="Sign up here"
+                    InputProps={{
+                        startAdornment: (
+                        <InputAdornment position="start">
+                            <AccountCircle />
+                        </InputAdornment>
+                        ),
+
+                    }}
+                />
+
+                <div className="subButton">
+                    <ToggleButton
+                    type="submit"
+                    onClick={(e)=> handleSubmit(e)}
+                    value="check"
+                    size="small"
+                    >
+                    <CheckIcon />
+                    </ToggleButton>
+                </div>
+
             </form>
+
+
+            
         </div>
     )
 }
