@@ -15,6 +15,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const pagesSignedIn = ['Home', 'Your Profile'];
 const pagesSignedOut = ['Home', 'Sign Up']
@@ -39,6 +40,8 @@ const NaviBar = ({user, setUser}) => {
         Cookies.set('user', undefined)
         window.location.href = '/'
     }
+
+    let belowMediumScreen = useMediaQuery('(min-width: 900px)')
     
       return (
         <AppBar position="static">
@@ -52,7 +55,6 @@ const NaviBar = ({user, setUser}) => {
               >
                 THE SOCIAL APP
               </Typography>
-    
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
                   size="large"
@@ -91,14 +93,6 @@ const NaviBar = ({user, setUser}) => {
                   ))}
                 </Menu>
               </Box>
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-              >
-                LOGO
-              </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                 {pagesSignedIn.map((page, i) => (
                   <Button
@@ -110,7 +104,15 @@ const NaviBar = ({user, setUser}) => {
                 ))}
               </Box>
     
-              <Box sx={{ flexGrow: 0 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' , alignItems: 'center'}}>
+              {belowMediumScreen &&<Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{px: 2, display: {md: 'static' }}}
+              >
+                {user.name}
+              </Typography>}
                 <Tooltip title="Logout">
                     <IconButton onClick={handleLogout} sx={{ p: 0 }}>
                     <Avatar alt={user.name} src={user.profile_pic} />
