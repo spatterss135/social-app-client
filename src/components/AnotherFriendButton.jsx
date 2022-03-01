@@ -49,3 +49,5 @@ export default function AnotherFriendButton({user, friend, userDB, setUserDB, se
         </div>
     )
 }
+
+// "start": "node --optimize_for_size --max_old_space_size=460 node_modules/.bin/react-scripts start",

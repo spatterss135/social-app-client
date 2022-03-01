@@ -26,13 +26,13 @@ export default function AddNewPost({setPosts, user}){
         // formData.append('user_id', user.user_id)
         // formData.append('content', postContent)
         // await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts`, formData);
-        await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`, 
-    {method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-      },
-     body: JSON.stringify({'user_id': user.user_id, 'content': postContent})
-    })
+    //     await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`, 
+    // {method: 'POST',
+    // headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //  body: JSON.stringify({'user_id': user.user_id, 'content': postContent})
+    // })
         let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`)
         let rData = await response.json()
         rData.sort((a, b) => a.post_id - b.post_id)

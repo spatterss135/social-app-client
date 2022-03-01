@@ -78,7 +78,7 @@ export default function UserFeedItem({user, userDB, post, clickedFriendButton, s
        headers: {
         'Content-Type': 'application/json'
       },
-        body: JSON.stringify({'content': newContent})
+        body: JSON.stringify({'content': newContent, "edited": true})
     })
     let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`)
     let rData = await response.json()
@@ -112,6 +112,9 @@ export default function UserFeedItem({user, userDB, post, clickedFriendButton, s
                 
                     <Typography gutterBottom variant="h5" component="div">
                         {usernameOfPoster}
+                        {post.edited && <Typography  sx={{fontSize: '10px', fontWeight: "bold", margin:"3px"}} variant="caption" color='text.secondary'>
+                    (edited)
+                </Typography>}
                         {user && <FriendButton setUserDB={setUserDB} user={user} post={post} clickedFriendButton={clickedFriendButton} setClickedFriendButton={setClickedFriendButton} userDB={userDB} setUser={setUser}/>}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">

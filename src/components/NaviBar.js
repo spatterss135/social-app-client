@@ -16,6 +16,20 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+
+const actions = [
+  { icon: <FileCopyIcon />, name: 'Copy' },
+  { icon: <SaveIcon />, name: 'Save' },
+  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <ShareIcon />, name: 'Share' },
+];
 
 const pagesSignedIn = ['Home', 'Your Profile'];
 const pagesSignedOut = ['Home', 'Sign Up']
@@ -45,6 +59,8 @@ const NaviBar = ({user, setUser}) => {
     
       return (
         <AppBar position="static">
+                
+
           {user && <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Typography
@@ -114,12 +130,13 @@ const NaviBar = ({user, setUser}) => {
                 {user.name}
               </Typography>}
                 <Tooltip title="Logout">
-                    <IconButton onClick={handleLogout} sx={{ p: 0 }}>
+                    <IconButton onMouseOver={()=> console.log('hey')} onClick={handleLogout} sx={{ p: 0 }}>
                     <Avatar alt={user.name} src={user.profile_pic} />
                     </IconButton>
                 </Tooltip>
               </Box>
             </Toolbar>
+            
           </Container>
           || <Container maxWidth="xl">
           <Toolbar disableGutters>
