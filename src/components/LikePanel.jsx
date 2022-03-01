@@ -3,21 +3,6 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 export default function LikePanel({user, post, likes, setLikes}){
 
-    const renderLikes = likes.map(like =>{
-        if(!likes){
-            return(
-                <div></div>
-            )
-        }
-        if(likes > 2){
-            return(
-                <div>
-                    <h1>{`Liked by ${like[0].user.name}, ${like[1].user.name}, and ${likes.length-2} others.`}</h1>
-                </div>
-            )
-        }
-    })
-
     async function likeHandler(e){
         e.preventDefault()
         await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/`,{
@@ -38,8 +23,8 @@ export default function LikePanel({user, post, likes, setLikes}){
 
     return(
         <div>
-            <ThumbUpIcon onClick={likeHandler}></ThumbUpIcon>
-            {renderLikes}
+            {/* <ThumbUpIcon onClick={likeHandler}></ThumbUpIcon> */}
+            {/* {renderLikes} */}
         </div>
     )
 }

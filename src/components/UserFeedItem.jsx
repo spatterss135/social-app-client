@@ -32,18 +32,6 @@ export default function UserFeedItem({user, userDB, post, clickedFriendButton, s
 
     let [isEditing, setIsEditing] = useState(false)
     let [newContent, setNewContent] = useState(post.content)
-    let [likes, setLikes] = useState()
-
-    useEffect(()=>{
-        async function getLikes(){
-            let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/post/${post.post_id}`,{
-                method: 'GET'
-            })
-            let rData = await response.json()
-            setLikes(rData)
-        }
-        getLikes()
-    },[post, user])
 
     let enabledEdit = user && user.user_id === post.user_id 
 
