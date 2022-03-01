@@ -23,6 +23,7 @@ function App() {
   let [user, setUser] = useState(cookieUser)
   let [userDB, setUserDB] = useState('')
   let [posts, setPosts] = useState('')
+  let [likes, setLikes] = useState()
 
   let [userPagePosts, setUserPagePosts] = useState(cookiePosts)
 
@@ -40,12 +41,20 @@ function App() {
       let rData = await response.json()
       setUserDB(rData)
     }
+    // async function getLikes(){
+    //   let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes`,{
+    //       method: 'GET'
+    //   })
+    //   let rData = await response.json()
+    //   setLikes(rData)
+    // }
+    // getLikes()
     fetchUsers()
     fetchPosts()
       // setPosts([])
       // setUserDB([])
 
-  }, [user])
+  }, [user, likes])
 
   
 
@@ -62,7 +71,7 @@ function App() {
               {user && <TogglePostsViewButton user={user} setPosts={setPosts}/> }
               {(userDB && !user) && <LoginPage setUser={setUser} userDB={userDB}/>} 
               {(userDB && posts) && <UserFeed userPagePosts={userPagePosts}
-            setUserPagePosts={setUserPagePosts} posts={posts} userDB={userDB} setUserDB={setUserDB} user={user} setUser={setUser} setPosts={setPosts}/>}
+            setUserPagePosts={setUserPagePosts} posts={posts} userDB={userDB} setUserDB={setUserDB} user={user} setUser={setUser} setPosts={setPosts} likes={likes} setLikes={setLikes}/>}
               {user?<AddNewPost setPosts={setPosts} user={user}/>:''}
             </div>
           }/>
