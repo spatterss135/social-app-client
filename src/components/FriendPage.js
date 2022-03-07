@@ -103,7 +103,7 @@ const FriendPage = ({posts, user, setUserDB, setUser}) => {
         <div className="conatainer">
             <div className="friendBar">
                 <div className='topBar'>
-                {friend ? <h2>{friend.name}</h2> : <h2>nothing</h2>}
+                {friend ? <Typography  sx={{fontWeight: 'bold'}} variant="h6">{friend.name}</Typography> : <></>}
                 {!isUser && <AnotherFriendButton setUser={setUser} user={user} friend={friend} setUserDB={setUserDB}/>}
                 </div>
                 <img className="profilePic" src={friend.profile_pic ? friend.profile_pic : "http://placekitten.com/250/175"} style={{'borderRadius': '40%'}}/>

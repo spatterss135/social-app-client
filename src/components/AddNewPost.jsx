@@ -21,11 +21,6 @@ export default function AddNewPost({setPosts, user}){
     async function handleSubmit(e){
 
         e.preventDefault()
-        // let formData = new FormData()
-        // formData.append('photo', postImage)
-        // formData.append('user_id', user.user_id)
-        // formData.append('content', postContent)
-        // await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts`, formData);
         await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`, 
     {method: 'POST',
     headers: {

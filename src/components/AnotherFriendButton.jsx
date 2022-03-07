@@ -2,6 +2,9 @@ import { Button } from "@mui/material"
 import Cookies from "cookies-js"
 import { useState } from "react"
 
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+
 export default function AnotherFriendButton({user, friend, userDB, setUserDB, setUser}){
     let [clickedFriendButton, setClickedFriendButton] = useState(false)
     async function removeFromFriendsList() {
@@ -44,9 +47,9 @@ export default function AnotherFriendButton({user, friend, userDB, setUserDB, se
     let isFriends = friendIds.includes(friend.user_id)
     console.log(isFriends)
     return(
-        <div>
-            {isFriends && <Button onClick={removeFromFriendsList}>Remove Friend</Button> || <Button onClick={addToFriendsList}>Add As Friend</Button>}
-        </div>
+        <>
+            {isFriends && <Button color='error' variant="outlined" onClick={removeFromFriendsList}><PersonRemoveIcon/></Button> || <Button variant="outlined" onClick={addToFriendsList}><PersonAddIcon/></Button>}
+        </>
     )
 }
 
